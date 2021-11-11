@@ -9,37 +9,31 @@ Ceci est un script temporaire.
 # 
 # =============================================================================
 
-def exctrationDeStock (nomFichier) :
+def extraction_de_stock(nomFichier) :
+    '''
+    Entrée: le nom du fichier de stock au format CSV en chaine de caractère
+    Sortie: un tableau 2-dimensionnel contenant un tableau avec le type de nourriture en chaine de caractère, et un autre contenant des 2-uplets des produits et de leur quantité ordonné en ligne par tableau 
+    Action: extrait les données du fichier CSV
+    '''
+    stock = []
+    ordreNourriture=[]
+    monFichier=open(nomFichier,'r')
+    stockBrut = monFichier.readlines()
+    count=0
+    while count<len(stockBrut)//2:
+        ligneTemporaire=[]
+        for number, produit in zip(stockBrut[count*2+1].split(','),stockBrut[count*2].split(',')):
+            if ('\n' in produit) or ('\n' in number):
+                ligneTemporaire.append((produit[:-1], number[:-1]))
+            else:
+                ligneTemporaire.append((produit, number))
+        ordreNourriture.append(ligneTemporaire[0][0])
+        stock.append(ligneTemporaire[1:])
+        count+=1
     
-    
-    Viandes=[]
-    Poissons=[]
-    LegumesManger=[]
-    Féculents=[]
-    TypesPates=[]
-    SaucesPates=[] # à rajouter dans le tableau
-    FromagePates=[] #à rajouter dans tableau
-    LegumesAccompagnement=[]
-    
-    monFichier= open (nomFichier,'r')
-    for lig in monFichier:
-        ligne= monFichier.readline()
-        #traiter la ligne comme il faut
-        
-        #Ligne = ligne.split()
-        
-        
-        #Viande= (Ligne[0],Ligne[1])
-        #Viandes.append(Viande)
-        #etc
-        #
-    
-    monFichier.close    
-        
-    Stock=Viandes+Poissons+LegumesManger+Féculents+TypesPates+SaucesPates+FromagePates+LegumesAccompagnement  
-        
-        
-    return Viandes,Poissons,LegumesManger,Féculents,TypesPates,SaucesPates,FromagePates,LegumesAccompagnement
+    monFichier.close()
+                
+    return [ordreNourriture, stock]
         
 
 def Manquant (plat):
@@ -113,3 +107,5 @@ def créerPlanningSemaine (choixmode):
     print("\n \t Lundi \t Mardi \t Mercredi \t Jeudi \t Vendredi \t Samedi \t Dimanche \t \n Plats",ListeSemaine[0],'\t',ListeSemaine[1],'\t',ListeSemaine[2],'\t',ListeSemaine[3],'\t',ListeSemaine[4],'\t',ListeSemaine[5],'\t',ListeSemaine[6])
         
     
+
+print(extraction_de_stock("monStock.csv"))
