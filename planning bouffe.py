@@ -24,13 +24,13 @@ def extraction_de_stock(nomFichier) :
         ligneTemporaire=[]
         for number, produit in zip(stockBrut[count*2+1].split(','),stockBrut[count*2].split(',')):
             if ('\n' in produit) or ('\n' in number):
-                ligneTemporaire.append((produit[:-1], number[:-1]))
+                ligneTemporaire.append([produit[:-1], int(number[:-1])])
             else:
-                ligneTemporaire.append((produit, number))
+                ligneTemporaire.append([produit, int(number)])
         ordreNourriture.append(ligneTemporaire[0][0])
         stock.append(ligneTemporaire[1:])
         count+=1
-    
+
     monFichier.close()
                 
     return [ordreNourriture, stock]
@@ -40,9 +40,7 @@ def Manquant (plat):
     """
     Trouve les ingrédients manquants à partir du Plat choisi en comparant la présence ou non dans le stock des ingrédients qui composent le plat
     """
-    
     ListesCourses=[]
-    
     for ingr in Ingrédients:
         for ingredient in Stock: #penser à définir stock en variable globale ou gérer ca
             
