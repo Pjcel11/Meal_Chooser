@@ -34,6 +34,15 @@ def extraction_de_stock(nomFichier) :
     monFichier.close()
                 
     return [ordreNourriture, stock]
+
+def extraction_de_plats(nomFichier):
+    plat = []
+    lignes = open(nomFichier, 'r').readlines()
+    for i in lignes[1:]:
+        tmp = i.split(',')
+        tmp = [tmp[0], tmp[1][:-1].split(' / ')]
+        plat.append(tmp)
+    return plat
         
 
 def Manquant (plat):
@@ -106,4 +115,4 @@ def créerPlanningSemaine (choixmode):
         
     
 
-print(extraction_de_stock("monStock.csv"))
+print(extraction_de_plats("mesPlats.csv"))
