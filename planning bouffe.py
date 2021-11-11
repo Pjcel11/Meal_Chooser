@@ -5,6 +5,11 @@
 Ceci est un script temporaire.
 """
 
+from openpyxl import Workboook
+wb = Workbook()
+filepath = "C:\Users\Pierre-Jean Martin\Documents\PJ\Jeux\planning bouff\Meal_Chooser/exemple.x"
+wb.save(filepath)
+
 # =============================================================================
 # 
 # =============================================================================
@@ -60,6 +65,7 @@ def Manquant (plat):
     
     return  ListeCourses
 
+def gerer_stock ():
 
 
 def choisirplat (modechoix) :
